@@ -1,0 +1,104 @@
+/* Panel header container - combined both rules */
+.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
+  color: #495057;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  transition: box-shadow 0.2s;
+
+  display: flex;
+  align-items: center;
+}
+
+.p-panelmenu .p-panelmenu-content {
+  color: red;
+  background: #fff;
+  border: none;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgb(222, 226, 230);
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+  padding: 0.25rem 0;
+}
+/* Move main menu expand arrow to the right side */
+.p-panelmenu .p-panelmenu-header .p-panelmenu-icon {
+  margin-left: auto !important;
+  order: 3 !important;
+  /* color: red; */
+  color: var(--color-blue-900);
+}
+
+/* Ensure icon + label come first */
+.p-panelmenu .p-panelmenu-header .p-menuitem-icon {
+  order: 1 !important;
+  margin-right: 8px;
+  color: var(--color-black-900);
+}
+
+.p-panelmenu .p-panelmenu-header .p-menuitem-text {
+  order: 2 !important;
+  color: var(--color-black-900);
+}
+.p-panelmenu
+  .p-panelmenu-content
+  .p-menuitem
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-icon {
+  color: var(--color-red-900);
+  margin-right: 0.5rem;
+}
+.p-panelmenu
+  .p-panelmenu-content
+  .p-menuitem
+  > .p-menuitem-content
+  .p-menuitem-link
+  .p-menuitem-text {
+  color: var(--color-blue-900);
+}
+.p-dropdown {
+  background: #002455 !important;
+  border: 1px solid #fff !important;
+  border-radius: 10px;
+  outline-color: #0000;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+    padding: 0px;
+}
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #fff;
+}
+.p-dropdown .p-dropdown-trigger {
+    color: #fff;
+    background: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width: 3rem;
+}.custom__datatable .p-datatable-thead tr th {
+    background-color: #002455;
+    border: none;
+}.p-column-title, .p-datatable-tbody {
+    font-size: 10px;
+    color: #fff;
+}
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:hover).p-highlight .p-inputswitch-slider {
+    background: #002455;
+}
+.p-dropdown .p-dropdown-label {
+    background: none;
+    border: 0;
+    color: #fff;
+}
+.p-button {
+    color: #fff;
+    background: #002455;
+    border: 1px solid #002455;
+    border-radius: 6px;
+    padding: 0px !important;
+    font-size: 1rem;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+  }
+  .custom__datatable .p-datatable-thead tr th.p-highlight {
+  background-color: #415879;
+}

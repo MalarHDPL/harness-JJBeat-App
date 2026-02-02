@@ -1,0 +1,5 @@
+.p-inputswitch:not(.p-disabled):has(.p-inputswitch-input:hover).p-highlight .p-inputswitch-slider {
+    background: #002455;
+}.p-inputswitch.p-highlight .p-inputswitch-slider {
+    background: #002455;
+}

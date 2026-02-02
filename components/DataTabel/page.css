@@ -1,0 +1,32 @@
+.custom__datatable .p-column-header-content .column__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #80889E;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.custom__datatable .p-column-header-content span[data-pc-section="sort"] {
+  display: none;
+}
+
+.custom__datatable .p-datatable-thead tr {
+  border: none;
+  border-radius: 6px;
+}
+
+.custom__datatable .p-datatable-thead tr th {
+  background-color: #F9FAFB;
+  border: none;
+}
+
+.custom__datatable .p-datatable-thead tr th.p-highlight {
+  background-color: #eef2ff;
+}
+.p-column-title{
+    font-size: 10px;
+}
+.p-datatable-tbody{
+        font-size: 10px;
+}
