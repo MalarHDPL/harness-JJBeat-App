@@ -13,7 +13,7 @@ export default function Sidebar({
   const router = useRouter();
   const pathname = usePathname();
 
-  const iconLabel = (icon, text, active) => (
+  const iconLabel = (icon:any, text:any, active:any) => (
     <span
       className={`flex items-center text-sm ${
         active ? "text-[#002455] font-semibold" : "text-blue-900"
@@ -26,14 +26,14 @@ export default function Sidebar({
     </span>
   );
 
-  const routeTo = (path, label) => {
+  const routeTo = (path:any, label:any) => {
     onClose();
     router.push(path);
     setOpen(false);
     setHeaderName(label); // ← Set actual menu name
   };
 
-  const erpMenuItems = [
+  const erpMenuItems:any[] = [
     {
       labelName: "Dashboard",
       label: iconLabel("pi pi-home", "Dashboard", pathname === "/dashboard"),
@@ -147,8 +147,8 @@ export default function Sidebar({
           <Image
             src="https://jayjaymills.com/wp-content/uploads/2022/06/jjLogo.png"
             alt="Company Logo"
-            width={120}
-            height={60}
+            width={"120"}
+            height={"60"}
             className="object-contain"
           />
         </div>
@@ -162,8 +162,8 @@ export default function Sidebar({
            <Image
           src="https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/aHR0cHM6Ly9tZWRpYS5uYXVrcmkuY29tL21lZGlhL2FiY29tcGxvZ28vaGFybmVzcy1kaWdpdGVjaC5qcGc.webp"
           alt="Logo"
-          width={60}
-          height={20}
+          width={"60"}
+          height={"20"}
           className="object-contain"
         />
           <span className="text-xl text-[#002455] font-semibold ml-3">
@@ -175,8 +175,8 @@ export default function Sidebar({
         <Image
           src="https://static.ambitionbox.com/assets/v2/images/rs:fit:200:200:false:false/aHR0cHM6Ly9tZWRpYS5uYXVrcmkuY29tL21lZGlhL2FiY29tcGxvZ28vaGFybmVzcy1kaWdpdGVjaC5qcGc.webp"
           alt="Logo"
-          width={60}
-          height={20}
+          width={"60"}
+          height={"20"}
           className="object-contain"
         />
         <span className="text-lg text-[#002455] font-semibold ml-2">
@@ -186,7 +186,7 @@ export default function Sidebar({
 
       {/* Scrollable PanelMenu Section */}
       <div className="h-full overflow-y-auto">
-        <PanelMenu model={erpMenuItems} className="text-xs text-[#002455]" />
+        <PanelMenu model={erpMenuItems as any[]} className="text-xs text-[#002455]" />
       </div>
     </div>
   );

@@ -9,10 +9,11 @@ import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 export default function DashboardHome() {
-const [selectedItem, setSelectedItem] = useState<ModuleKey | null>(null);
-const [visible, setVisible] = useState<boolean>(false);
-const [selectedModule, setSelectedModule] = useState<ModuleKey | null>(null);
-
+  const [selectedItem, setSelectedItem] = useState<ModuleKey | undefined>(
+    undefined,
+  );
+  const [visible, setVisible] = useState<boolean>(false);
+  const [selectedModule, setSelectedModule] = useState<ModuleKey | null>(null);
 
   const router = useRouter();
   const modules: ModuleBlock[] = [

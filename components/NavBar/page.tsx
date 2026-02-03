@@ -19,28 +19,30 @@ export default function Navbar({
   });
 
   const router = useRouter();
-  const dropdownRef = useRef(null); // ⬅️ NEW
+const dropdownRef = useRef<HTMLDivElement>(null);
+
 
   const handleClickReset = () => {
     router.push("/resetpassword");
   };
 
-  // ⬅️ CLOSE DROPDOWN WHEN CLICKING OUTSIDE
-  useEffect(() => {
-    function handleOutsideClick(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setOpen(false);
-      }
+useEffect(() => {
+  function handleOutsideClick(e: MouseEvent) {
+   
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      setOpen(false);
     }
+  }
 
-    if (open) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    }
+  if (open) {
+    document.addEventListener("mousedown", handleOutsideClick);
+  }
 
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [open]);
+  return () => {
+    document.removeEventListener("mousedown", handleOutsideClick);
+  };
+}, [open]);
+
 
   return (
     <div className="w-full fixed top-0 left-0 bg-white shadow-lg z-50 border-b border-[#002455]">
@@ -66,8 +68,8 @@ export default function Navbar({
             <Image
               src="https://jayjaymills.com/wp-content/uploads/2022/06/jjLogo.png"
               alt="Company Logo"
-              width={120}
-              height={60}
+              width={"120"}
+              height={"60"}
               className="object-contain"
             />
           </div>
@@ -80,8 +82,8 @@ export default function Navbar({
   <Image
     src="https://jayjaymills.com/wp-content/uploads/2022/06/jjLogo.png"
     alt="Company Logo"
-    width={120}
-    height={60}
+    width={"120"}
+    height={"60"}
     className="object-contain"
   />
 </div>

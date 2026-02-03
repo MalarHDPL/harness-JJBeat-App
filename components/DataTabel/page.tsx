@@ -3,7 +3,12 @@ import "./page.css";
 import { DataTable } from "primereact/datatable";
 import ColumnComponent from "./ColumnComponent";
 
-const DataTableComponent = ({ value, columns, removableSort }) => {
+type DataTableComponentProps={
+  value: any[];
+  columns: any[];
+  removableSort?: boolean;
+}
+const DataTableComponent = ({ value, columns, removableSort }: DataTableComponentProps) => {
   return (
     <div className="custom__datatable">
       <DataTable

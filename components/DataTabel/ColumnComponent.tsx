@@ -2,9 +2,31 @@ import React from "react";
 import { Column } from "primereact/column";
 import "./page.css";
 
-const ColumnComponent = ({ field, header, sortable, removableSort, body }) => {
-  
-  const HeaderTemplate = (options) => {
+// Header template options provided by PrimeReact DataTable
+interface DataTableHeaderOptions {
+  sortField?: string;
+  sortOrder?: number;
+  // additional keys allowed
+  [key: string]: any;
+}
+
+// Props for the custom wrapper column
+interface ColumnComponentProps {
+  field: string;
+  header: string;
+  sortable?: boolean;
+  removableSort?: boolean;
+  body?: (data: any) => React.ReactNode;
+}
+
+const ColumnComponent: React.FC<ColumnComponentProps> = ({
+  field,
+  header,
+  sortable = false,
+  removableSort = false,
+  body,
+}) => {
+  const HeaderTemplate = (options: DataTableHeaderOptions) => {
     const isSorted = options.sortField === field;
     const sortOrder = isSorted ? options.sortOrder : 0;
 

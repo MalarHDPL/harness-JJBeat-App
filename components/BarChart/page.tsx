@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 import "chart.js/auto";
+type ChartKey =
+  | "It"
+  | "Ie"
+  | "Production"
+  | "Cutting"
+  | "Printing"
+  | "Embroidery"
+  | "Quality"
+  | "Employees"
+  | "Recruitment"
+  | "Payroll"
+  | "Finance"
+  | "Billing"
+  | "Expenses";
 
-const BarC = ({ selectedItem }: any) => {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
-
-  const chartDataset = {
+interface BarCProps {
+  selectedItem?: ChartKey;
+}
+ const chartDataset :Record<ChartKey, number[]>= {
     It: [50, 60, 70, 40, 90, 30],
     Ie: [20, 40, 55, 60, 30, 80],
     Production: [90, 40, 70, 20, 60, 30],
@@ -21,7 +34,7 @@ const BarC = ({ selectedItem }: any) => {
     Billing: [30, 40, 60, 80, 55, 90],
     Expenses: [90, 70, 40, 20, 50, 30],
   };
-  const colorMap = {
+  const colorMap: Record<ChartKey, string> = {
     It: "#6B83A1",
     Ie: "#71A7A2",
     Production: "#C58A5A",
@@ -37,6 +50,11 @@ const BarC = ({ selectedItem }: any) => {
     Expenses: "#C06E89",
   };
 
+const BarC: React.FC<BarCProps> = ({ selectedItem }) => {
+  const [chartData, setChartData] = useState({});
+  const [chartOptions, setChartOptions] = useState({});
+
+ 
   useEffect(() => {
     const defaultKey = selectedItem || "It";
 

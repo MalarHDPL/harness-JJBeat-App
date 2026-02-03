@@ -2,7 +2,7 @@
 import React from "react";
 import ModuleCard from "../ModuleCard/page";
 
-export default function ModuleSection({ title, items }) {
+export default function ModuleSection({ title, items }: { title: string; items: { icon: React.ReactNode; label: string }[] }) {
   return (
     <div className="bg-white p-4 rounded-xl shadow-lg mb-6 border border-gray-200">
       {/* Section Title */}

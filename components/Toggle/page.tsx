@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InputSwitch } from "primereact/inputswitch";
 import "./page.css"
 
-const Toggle = ({ rowData }) => {
+const Toggle = ({ rowData }: { rowData: { status: boolean } }) => {
   const [checked, setChecked] = React.useState(rowData.status);
 
   return (

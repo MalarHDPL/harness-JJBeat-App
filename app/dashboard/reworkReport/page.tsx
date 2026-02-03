@@ -28,7 +28,11 @@ export const operationColumns = [
 ];
 
 const ReworkReport = () => {
-  const [selectedCity, setSelectedCity] = useState(null);
+type City = { name: string; code: string };
+
+const [selectedCity, setSelectedCity] = useState<City | null>(null);
+
+
 
   const [date, setDate] = useState<Date | null>(new Date());
   const router = useRouter();
@@ -95,13 +99,14 @@ const ReworkReport = () => {
       <div className="col-12 md:col-2 lg:col-2">
         <div className="w-full ">
           <Dropdown
-            value={selectedCity}
-            onChange={(e) => setSelectedCity(e.value)}
-            options={cities}
-            optionLabel="name"
-            placeholder="Line No"
-            className="w-full"
-          />
+  value={selectedCity}
+  onChange={(e) => setSelectedCity(e.value)}
+  options={cities}
+  optionLabel="name"
+  placeholder="Line No"
+  className="w-full"
+/>
+
         </div>
       </div>
       <div className="col-12 md:col-3 lg:col-3">
@@ -109,7 +114,7 @@ const ReworkReport = () => {
           <Calendar
             id="buttondisplay"
             value={date}
-            onChange={(e) => setDate(e.value)}
+           onChange={(e) => setDate(e.value ?? null)}
             showIcon
             // placeholder="Choose Date"
           />

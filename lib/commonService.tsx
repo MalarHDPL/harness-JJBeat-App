@@ -1,31 +1,48 @@
 import api from "./axiosClient";
 
+// Generic type for query params
+type Params = Record<string, any> | undefined;
 
-export const getRequest = async (url, params) => {
+// GET request
+export const getRequest = async (url: string, params?: Params) => {
   const res = await api.get(url, { params });
   return res;
 };
 
-export const postRequest = async (url, payload, params) => {
+// POST request
+export const postRequest = async (
+  url: string,
+  payload?: any,
+  params?: Params
+) => {
   console.log("first");
-  const res = await api.post(url, payload, {
-    params,
-  });
+  const res = await api.post(url, payload, { params });
   console.log(res, "=======>");
   return res;
 };
 
-export const putRequest = async (url, payload, params) => {
+// PUT request
+export const putRequest = async (
+  url: string,
+  payload?: any,
+  params?: Params
+) => {
   const res = await api.put(url, payload, { params });
   return res;
 };
 
-export const deleteRequest = async (url, params) => {
+// DELETE request
+export const deleteRequest = async (url: string, params?: Params) => {
   const res = await api.delete(url, { params });
   return res;
 };
 
-export const patchRequest = async (url, payload, params) => {
+// PATCH request
+export const patchRequest = async (
+  url: string,
+  payload?: any,
+  params?: Params
+) => {
   const res = await api.patch(url, payload, { params });
   return res;
 };
