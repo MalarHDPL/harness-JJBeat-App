@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers/page";
+
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
@@ -11,6 +11,7 @@ import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { Providers } from "../app/providers/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,19 +30,31 @@ export const metadata: Metadata = {
     icon: "https://jayjaymills.com/wp-content/uploads/2021/11/jj.png", 
   },
 };
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-       <Providers>{children}</Providers>
+      <body>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
 }
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <html lang="en">
+//       <body
+//         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+//       >
+//        <Providers>{children}</Providers>
+//       </body>
+//     </html>
+//   );
+// }
