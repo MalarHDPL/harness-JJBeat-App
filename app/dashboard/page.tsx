@@ -9,12 +9,13 @@ import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 export default function DashboardHome() {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [selectedModule, setSelectedModule] = useState(null);
+const [selectedItem, setSelectedItem] = useState<ModuleKey | null>(null);
+const [visible, setVisible] = useState<boolean>(false);
+const [selectedModule, setSelectedModule] = useState<ModuleKey | null>(null);
+
 
   const router = useRouter();
-  const modules = [
+  const modules: ModuleBlock[] = [
     {
       title: "Administration",
       items: [
@@ -49,7 +50,7 @@ export default function DashboardHome() {
       ],
     },
   ];
-  const subModuleData = {
+  const subModuleData: Record<ModuleKey, string[]> = {
     It: [
       "OPSEQ",
       "Operation Mapping",
@@ -139,7 +140,6 @@ export default function DashboardHome() {
       "Monthly Payroll Summary",
     ],
 
-    // -------------------- Accounts --------------------
     Finance: [
       "Daily Financial Snapshot",
       "Accounts Overview",
@@ -163,10 +163,10 @@ export default function DashboardHome() {
     ],
   };
 
-  const handleClick = (item) => {
+  const handleClick = (item: ModuleItem) => {
     setSelectedItem(item.key);
   };
-  const handleClickTwo = (item) => {
+  const handleClickTwo = (item: ModuleItem) => {
     alert("Arrow clicked!");
   };
   const headerElement = (
@@ -191,7 +191,6 @@ export default function DashboardHome() {
   );
 
   return (
-    // <div className="grid">
     <div className="grid">
       <h1 className="col-12 text-2xl font-bold text-[#002455]">
         ERP Dashboard
@@ -200,19 +199,15 @@ export default function DashboardHome() {
       {modules.map((block, index) => (
         <div key={index} className="col-12 md:col-6 lg:col-3">
           <div className="bg-white shadow-lg rounded-xl overflow-hidden h-[230px] flex flex-col border border-gray-200 hover:shadow-2xl transition-all duration-300">
-            {/* Header */}
             <div className="text-base font-bold text-white p-3 text-center bg-[#002455]">
               {block.title}
             </div>
-
-            {/* Items */}
             <div className="divide-y divide-gray-200 flex-1 overflow-auto">
               {block.items.map((item, idx) => (
                 <div
                   key={idx}
                   className="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-100 transition-all duration-200"
                 >
-                  {/* Left icon + label */}
                   <div
                     onClick={() => handleClick(item)}
                     className="flex items-center"
@@ -224,8 +219,6 @@ export default function DashboardHome() {
                       {item.label}
                     </span>
                   </div>
-
-                  {/* Right arrow */}
                   <span
                     onClick={() => {
                       setSelectedModule(item.key);

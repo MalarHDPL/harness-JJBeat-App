@@ -5,22 +5,15 @@ import Navbar from "@/components/NavBar/page";
 import Sidebar from "@/components/SideBar/page";
 import { useRouter } from "next/navigation";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [headerName,setHeaderName]=useState('ERP Dashboard')
-  // const handleLogout = async () => {
-  //   // alert("dhhdd");
-  //   await fetch("/api/login", { method: "POST" });
-  //   // router.push("/login");
-  //   router.push("/");
-  // };
+
   const handleLogout = async () => {
     await fetch("/api/logout", { method: "POST" });
-    // router.push("/login");
     router.push("/");
-
   };
   return (
     <div className="">
@@ -47,15 +40,5 @@ export default function DashboardLayout({ children }) {
         </main>
       </div>
     </div>
-    // <div className="flex h-screen">
-
-    //   <div className="flex h-[calc(100vh-68px)] overflow-hidden">
-    //     <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-
-    //     <main className="flex-1 p-4 overflow-y-auto bg-[#E3E3E3]">
-    //       {children}
-    //     </main>
-    //   </div>
-    // </div>
   );
 }

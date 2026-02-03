@@ -89,8 +89,6 @@ export const products = [
   },
 ];
 
-
-
 export const classOptions = Array.from({ length: 12 }, (_, i) => ({
   label: `${i + 1}`,
   value: `${i + 1}`,

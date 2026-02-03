@@ -16,15 +16,16 @@ import {
   chainThunkPost,
   chainThunkView,
 } from "./store/chainMiddleware";
-import { AppDispatch } from "@/redux/mainStore";
+import { AppDispatch, RootState } from "@/redux/mainStore";
+import { ChainFormValues } from "@/app/ts_types/chain_types";
 
 export default function Users() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { chainData, chainViewData } = useSelector((state: any) => ({
-    chainData: state.chainSlice?.chainData,
-    chainViewData: state.chainSlice?.chainViewData,
-  }));
+const { chainData, chainViewData } = useSelector((state: RootState) => ({
+  chainData: state.chainSlice.chainData,
+  chainViewData: state.chainSlice.chainViewData,
+}));
 
   const [selectedCity, setSelectedCity] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -34,44 +35,70 @@ export default function Users() {
     dispatch(chainThunk());
   }, []);
 
-  const formik = useFormik({
+  const formik = useFormik<ChainFormValues>({
     initialValues: {
-      id: "",
-      createdon: "",
-      createdname: "",
-      source: "",
-      destination: "",
-      leads: "",
-      createdby: "",
-      recentleaddata: "",
+     id: "",
+    createdon: "",
+    createdname: "",
+    source: "",
+    destination: "",
+    leads: "",
+    createdby: "",
+    status: false,        
+    recentleaddata: "",
     },
     enableReinitialize: true,
-    onSubmit: (values) => {
-      if (viewModal === "Edit") {
-        dispatch(chainThunkEdit(values));
-      } else {
-        dispatch(chainThunkPost(values));
-      }
-      setVisible(false);
-    },
-  });
+   onSubmit: (values) => {
+  const payload = {
+    ...values,
+    id: String(values.id),       
+    leads: Number(values.leads),  
+    status: true,               
+  };
 
-  useEffect(() => {
-    if (viewModal === "View" || viewModal === "Edit") {
-      formik.setValues({
-        id: chainViewData?.id || "",
-        createdon: chainViewData?.createdon || "",
-        createdname: chainViewData?.createdname || "",
-        source: chainViewData?.source || "",
-        destination: chainViewData?.destination || "",
-        leads: chainViewData?.leads || "",
-        createdby: chainViewData?.createdby || "",
-        recentleaddata: chainViewData?.recentleaddata || "",
-      });
-    } else {
-      formik.resetForm();
-    }
-  }, [chainViewData, viewModal]);
+  if (viewModal === "Edit") {
+    dispatch(chainThunkEdit(payload));
+  } else {
+    dispatch(chainThunkPost(payload));
+  }
+
+  setVisible(false);
+},
+  });
+useEffect(() => {
+  if (viewModal === "View" || viewModal === "Edit") {
+    formik.setValues({
+      id: String(chainViewData?.id || ""),
+      createdon: chainViewData?.createdon || "",
+      createdname: chainViewData?.createdname || "",
+      source: chainViewData?.source || "",
+      destination: chainViewData?.destination || "",
+      leads: String(chainViewData?.leads || ""), 
+      createdby: chainViewData?.createdby || "",
+      recentleaddata: chainViewData?.recentleaddata || "",
+      status: Boolean(chainViewData?.status), // ensure boolean
+    });
+  } else {
+    formik.resetForm();
+  }
+}, [chainViewData, viewModal]);
+
+  // useEffect(() => {
+  //   if (viewModal === "View" || viewModal === "Edit") {
+  //     formik.setValues({
+  //       id: chainViewData?.id || "",
+  //       createdon: chainViewData?.createdon || "",
+  //       createdname: chainViewData?.createdname || "",
+  //       source: chainViewData?.source || "",
+  //       destination: chainViewData?.destination || "",
+  //       leads: chainViewData?.leads || "",
+  //       createdby: chainViewData?.createdby || "",
+  //       recentleaddata: chainViewData?.recentleaddata || "",
+  //     });
+  //   } else {
+  //     formik.resetForm();
+  //   }
+  // }, [chainViewData, viewModal]);
 
   const handleView = (row: any) => {
     setVisible(true);
@@ -185,27 +212,28 @@ const handleDelete=(row:any)=>{
       >
         <form onSubmit={formik.handleSubmit}>
           <div className="p-fluid p-grid gap-3 p-2">
-            {[
-              { label: "Created On", name: "createdon" },
-              { label: "Chain Name", name: "createdname" },
-              { label: "Source", name: "source" },
-              { label: "Destination", name: "destination" },
-              { label: "Leads", name: "leads" },
-              { label: "Created By", name: "createdby" },
-              { label: "Recent Lead Data", name: "recentleaddata" },
-            ].map((field) => (
-              <div key={field.name} className="p-col-12 p-md-6">
-                <label className="font-semibold text-sm">{field.label}</label>
-                <InputText
-                  name={field.name}
-                  disabled={viewModal === "View"}
-                  value={formik.values[field.name]}
-                  onChange={formik.handleChange}
-                  className="w-full"
-                  placeholder={`Enter ${field.label.toLowerCase()}`}
-                />
-              </div>
-            ))}
+           {[
+  { label: "Created On", name: "createdon" },
+  { label: "Chain Name", name: "createdname" },
+  { label: "Source", name: "source" },
+  { label: "Destination", name: "destination" },
+  { label: "Leads", name: "leads" },
+  { label: "Created By", name: "createdby" },
+  { label: "Recent Lead Data", name: "recentleaddata" },
+].map((field) => (
+  <div key={field.name} className="p-col-12 p-md-6">
+    <label className="font-semibold text-sm">{field.label}</label>
+    <InputText
+      name={field.name}
+      disabled={viewModal === "View"}
+      value={String(formik.values[field.name as keyof ChainFormValues] ?? "")}
+      onChange={formik.handleChange}
+      className="w-full"
+      placeholder={`Enter ${field.label.toLowerCase()}`}
+    />
+  </div>
+))}
+
 
             {/* Actions */}
             <div className="flex justify-between">

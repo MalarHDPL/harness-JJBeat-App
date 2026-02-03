@@ -6,20 +6,15 @@ import {
   chainThunkPost,
   chainThunkView,
 } from "./chainMiddleware";
+import { homeType } from "@/app/ts_types/chain_types";
 
-type homeType = {
-  isLoading: boolean;
-  chainData: any;
-  error: string | any;
-  chainViewData: any;
-  chainEditData: any;
-};
+
 const chainsInitialState: homeType = {
   isLoading: false,
   chainData: [],
   error: "",
-  chainViewData: {},
-  chainEditData: {},
+  chainViewData: null,
+  chainEditData: null,
 };
 
 const chainSlice = createSlice({
@@ -45,7 +40,7 @@ const chainSlice = createSlice({
     });
     builder.addCase(chainThunkPost.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.chainData.unshift(action.payload); // ADD to list
+      state.chainData.unshift(action.payload); 
     });
 
     builder.addCase(chainThunkPost.rejected, (state, action) => {
@@ -73,7 +68,7 @@ const chainSlice = createSlice({
     builder.addCase(chainThunkEdit.fulfilled, (state, action) => {
       const updatedItem = action.payload;
 
-      const index = state.chainData.findIndex((i) => i.id === updatedItem.id);
+      const index = state.chainData.findIndex((i) => i.id === updatedItem?.id);
 
       if (index !== -1) {
         state.chainData[index] = updatedItem;

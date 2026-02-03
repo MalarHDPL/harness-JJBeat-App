@@ -20,7 +20,6 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.error = null;
-      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -35,9 +34,7 @@ const authSlice = createSlice({
         state.user = action.payload?.user || null;
         state.error = null;
 
-        if (action.payload?.token) {
-          localStorage.setItem("token", action.payload.token);
-        }
+      
       })
       .addCase(LoginMiddleWare.rejected, (state, action) => {
         state.loading = false;
