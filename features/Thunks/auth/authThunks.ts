@@ -1,41 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LOGIN } from "@/redux/actionTypes";
 import axios from "axios";
-// import Cookies from "js-cookie";
 import { APIROUTES } from "@/lib/apiRoutes";
-// import axiosInstance from "@/lib/axiosClient";
-
-interface LoginPayload {
-  userId: string;
-  password: string;
-  companyId: number | string;
-  companyName: string;
-  divisionId: number | string | null;
-  divisionName: string | null;
-}
-
-interface LoginResponse {
-  token?: string;
-  message?: string;
-  [key: string]: any;
-}
+import {
+  ApiResponse,
+  loginPayloadType,
+  LoginResponse,
+  resetPasswordPayloadType,
+} from "@/app/ts_types/auth_types";
 
 export const LoginMiddleWare = createAsyncThunk<
   LoginResponse,
-  LoginPayload,
+  loginPayloadType,
   { rejectValue: string }
 >(
   LOGIN,
   async (
-    {
-      userId,
-      password,
-      companyId,
-      companyName,
-      divisionId,
-      divisionName,
-    },
-    { rejectWithValue }
+    { userId, password, companyId, companyName, divisionId, divisionName },
+    { rejectWithValue },
   ) => {
     try {
       const payload = {
@@ -46,52 +28,42 @@ export const LoginMiddleWare = createAsyncThunk<
         divisionId,
         divisionName,
       };
-
-      // console.log(axiosInstance,"Login payload:", payload, APIROUTES.LOGIN.POST_LOGIN);
-      const { data }: any = await axios.post(APIROUTES.LOGIN.POST_LOGIN, payload); 
-      console.log("Login response:", data);
-      // if (data?.token) {
-      //   Cookies.set("token", data.token);
-      // }
-      return data;
-    } catch (error: any) {
-      console.error("Login Error:", error);
-
-      return rejectWithValue(
-        error?.response?.data?.error?.message || "Login failed"
+      const { data } = await axios.post<LoginResponse>(
+        APIROUTES.LOGIN.POST_LOGIN,
+        payload,
       );
-    }
-  }
-);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(
+          error.response?.data?.error?.message ?? "Login failed",
+        );
+      }
 
+      return rejectWithValue("Login failed");
+    }
+  },
+);
 
 export const ResetPasswordMiddleWare = createAsyncThunk<
-  any,
-  {
-    userId: string;
-    oldPassword: string;
-    newPassword: string;
-    companyId: number;
-    divisionId: number | null;
-  },
+  ApiResponse,
+  resetPasswordPayloadType,
   { rejectValue: string }
->(
-  "auth/resetPassword",
-  async (payload, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post(
-        APIROUTES.LOGIN.RESET_PASSWORD,
-        payload
-      );
+>("auth/resetPassword", async (payload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post<ApiResponse>(
+      APIROUTES.LOGIN.RESET_PASSWORD,
+      payload,
+    );
 
-      return data; 
-    } catch (error: any) {
-      console.error("Reset Password Error:", error);
-
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
       return rejectWithValue(
-        error?.response?.data?.message || "Reset Password failed"
+        error.response?.data?.error?.message ?? "Login failed",
       );
     }
-  }
-);
 
+    return rejectWithValue("Login failed");
+  }
+});

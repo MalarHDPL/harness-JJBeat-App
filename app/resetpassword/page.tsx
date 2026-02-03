@@ -6,18 +6,19 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-import { useFormik } from "formik";
+import { FormikErrors, useFormik } from "formik";
 import { Image } from "primereact/image";
 import "./page.css";
 import { ResetPasswordMiddleWare } from "@/features/Thunks/auth/authThunks";
 import { AppDispatch } from "@/redux/mainStore";
+import { resetPasswordFormValues } from "../ts_types/auth_types";
 
 export default function ResetPassword() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const toast = useRef<Toast>(null);
 
-  const formik = useFormik({
+  const formik = useFormik<resetPasswordFormValues>({
     initialValues: {
       username: "",
       oldPassword: "",
@@ -25,7 +26,7 @@ export default function ResetPassword() {
     },
 
     validate: (values) => {
-      const errors: any = {};
+      const errors: FormikErrors<resetPasswordFormValues> = {};
 
       if (!values.username) errors.username = "Username is required";
       if (!values.oldPassword) errors.oldPassword = "Old Password is required";

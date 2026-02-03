@@ -6,27 +6,25 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
-import { useFormik } from "formik";
+import { FormikErrors, useFormik } from "formik";
 import { Image } from "primereact/image";
 import "./globals.css";
-
-// import { AppDispatch } from "@/redux/mainStore";
 import { LoginMiddleWare } from "@/features/Thunks/auth/authThunks";
 import { AppDispatch } from "@/redux/mainStore";
-// import { LoginMiddleWare } from "../../features/Thunks/auth/authThunks";
+import { LoginFormValues } from "./ts_types/auth_types";
 
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const toast = useRef<Toast>(null);
 
-  const formik = useFormik({
+  const formik = useFormik<LoginFormValues>({
     initialValues: {
       username: "",
       password: "",
     },
     validate: (values) => {
-      const errors: { username?: string; password?: string } = {};
+      const errors: FormikErrors<LoginFormValues> = {};
 
       if (!values.username) {
         errors.username = "Username is required";
@@ -103,7 +101,7 @@ export default function Login() {
       <div
         className="
     col-12 md:col-6 lg:col-6
-    h-90 md:h-screen     /* mobile height small, desktop full height */
+    h-90 md:h-screen
     flex items-center justify-center
     bg-cover bg-center
   "
@@ -124,8 +122,8 @@ export default function Login() {
             <Image
               src="https://jayjaymills.com/wp-content/uploads/2022/06/jjLogo.png"
               alt="Company Logo"
-              width={160}
-              height={50}
+              width="160"
+              height="50"
               className="object-contain"
             />
           </div>

@@ -3,13 +3,7 @@ import {
   LoginMiddleWare,
   ResetPasswordMiddleWare,
 } from "@/features/Thunks/auth/authThunks";
-
-interface AuthState {
-  token: string | null;
-  user: any | null;
-  loading: boolean;
-  error: string | null;
-}
+import { AuthState } from "@/app/ts_types/auth_types";
 
 const initialState: AuthState = {
   token: null,
@@ -56,7 +50,6 @@ const authSlice = createSlice({
       .addCase(ResetPasswordMiddleWare.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        // Do NOT set token or user here (reset password doesn't give token)
       })
       .addCase(ResetPasswordMiddleWare.rejected, (state, action) => {
         state.loading = false;
